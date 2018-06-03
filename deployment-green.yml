@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-music-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-music
+      type: green
+  template:
+    metadata:
+      labels:
+        app: spring-music
+        type: green
+    spec:
+      containers:
+      - name: spring-music
+        image: harbor.pcf.humourmind.com/spring-vmw/spring-music:green
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "768Mi"
+            cpu: "500m"
+          limits:
+            memory: "768Mi"
+            cpu: "1"
+        ports:
+        - name: http
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-music-green
+  labels:
+    app: spring-music
+    type: green
+spec:
+  selector:
+    app: spring-music
+    type: green
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+          

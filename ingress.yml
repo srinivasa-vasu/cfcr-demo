@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spring-music
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/ssl-redirect: "false"  
+spec:
+  tls:
+  - secretName: tls-kubernetes
+  rules:
+  - host: spring-music.spring.pksdemo.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spring-music
+          servicePort: 80
+      - path: /*
+        backend:
+          serviceName: spring-music
+          servicePort: 80
