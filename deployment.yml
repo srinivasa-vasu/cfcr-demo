@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: spring-music
-        image: harbor.pcf.humourmind.com/spring-vmw/spring-music:blue
+        image: humourmind/spring-music:blue
         imagePullPolicy: IfNotPresent
         resources:
           requests:
